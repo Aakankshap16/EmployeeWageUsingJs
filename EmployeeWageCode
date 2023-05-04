@@ -2,7 +2,7 @@ console.log("Welcome to Employee Wage Problem Using Js!!!!!");
 
 const Is_Absent = 0;
 const Is_Present = 1;
-const Is_PartTime = 3; // changed value from 1 to 3
+const Is_PartTime = 1; 
 const Is_FullTime = 2;
 const Part_Time_Hrs = 4;
 const Full_Time_Hrs = 8;
