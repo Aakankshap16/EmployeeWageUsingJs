@@ -1,48 +1,41 @@
-console.log("Welcome to Employee Wage Problem Using Js!!!!!")
-const Is_Absent = 0
-const Is_Present = 1
-const Is_PartTime = 0
-const Is_FullTime = 1
-const Part_Time_Hrs = 4
-const Full_Time_Hrs = 8
-const Wage_Per_Hour = 20
+console.log("Welcome to Employee Wage Problem Using Js!!!!!");
+
+const Is_Absent = 0;
+const Is_Present = 1;
+const Is_PartTime = 3; // changed value from 1 to 3
+const Is_FullTime = 2;
+const Part_Time_Hrs = 4;
+const Full_Time_Hrs = 8;
+const Wage_Per_Hour = 20;
 
 {
-let empcheck = Math.floor(Math.random()* 10) % 2
-if(empcheck == Is_Absent )
-{
- console.log("Employee is Absent")   
- return
+  let empcheck = Math.floor(Math.random() * 10) % 2;
+  if (empcheck == Is_Absent) {
+    console.log("Employee is Absent");
+    return;
+  } else {
+    console.log("Employee is Present");
+  }
 }
-else
-{
-    console.log("Employee is Present")      
-}
-}
-// check for type of job
-{
-    let empHrs = 0
-    let empWage = 0
-    let empcheck = Math.floor(Math.random()* 10) % 2
-    switch(empcheck)
-    {
 
-        case Is_PartTime:
-            {
-                empHrs = Part_Time_Hrs 
-                empWage = empHrs * Wage_Per_Hour
-                console.log("Emp Wage of employee for half time is :" +empWage)
-                break
-            }
-        case Is_FullTime:
-                {
-                    empHrs = Full_Time_Hrs 
-                    empWage = empHrs * Wage_Per_Hour
-                    console.log("Emp Wage of employee for full time is :" +empWage)
-                    break
-                }
-       
+// wrap the code block in a function
+{
+  let empHrs = 0;
+  let empWage = 0;
+  let empcheck = Math.floor(Math.random() * 10) % 3;
+  switch (empcheck) {
+    case Is_PartTime: {
+      empHrs = Part_Time_Hrs;
+      empWage = empHrs * Wage_Per_Hour;
+      break;
     }
-   
-
+    case Is_FullTime: {
+      empHrs = Full_Time_Hrs;
+      empWage = empHrs * Wage_Per_Hour;
+      break;
+    }
+    default:
+      empWage = empHrs * Wage_Per_Hour;
+  }
+  console.log("Emp Wage of employee is :" + empWage);
 }
