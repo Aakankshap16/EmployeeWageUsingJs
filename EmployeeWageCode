@@ -1,1 +1,13 @@
 console.log("Welcome to Employee Wage Problem Using Js!!!!!")
+const Is_Absent = 0
+const Is_Present = 1
+
+let empcheck = Math.floor(Math.random()* 10) % 2
+if(empcheck == Is_Absent )
+{
+ console.log("Employee is Absent")   
+}
+else
+{
+    console.log("Employee is Present")      
+}
