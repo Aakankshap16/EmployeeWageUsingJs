@@ -2,11 +2,13 @@ console.log("Welcome to Employee Wage Problem Using Js!!!!!");
 
 const Is_Absent = 0;
 const Is_Present = 1;
-const Is_PartTime = 1; // changed value from 1 to 3
+const Is_PartTime = 0; 
 const Is_FullTime = 2;
 const Part_Time_Hrs = 4;
 const Full_Time_Hrs = 8;
 const Wage_Per_Hour = 20;
+const TotalWorkingDays = 20;
+
 function getWorkHrs(jobType)
 {
     switch(jobType)
@@ -38,12 +40,18 @@ function getWorkHrs(jobType)
 
 // calculate emp wages
 {
-  let empHrs = 0;
-  let empWage = 0;
-  let empType = Math.floor(Math.random() * 10) % 3;
+  let empHrs = 0, totalEmpHrs=0;
+  let empWage = 0, totalWages=0;
+  for (let days =0; days<=TotalWorkingDays; days++ )
+  {
+  let empType = Math.floor(Math.random() * 10) % 2;
  
       empHrs = getWorkHrs(empType)
+      totalEmpHrs += empHrs;
       empWage = empHrs * Wage_Per_Hour;
+      totalWages += empWage;
     
-  console.log("Emp Wage of employee is :" + empWage);
+      console.log( days,"day  Emp hrs is ",empHrs," and wages of employee is Rs :", empWage);
+  }
+  console.log("Total working  hours is "+ totalEmpHrs +" and wages of employee per month is  " + totalWages);
 }
