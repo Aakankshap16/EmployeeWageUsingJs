@@ -8,6 +8,7 @@ const Part_Time_Hrs = 4;
 const Full_Time_Hrs = 8;
 const Wage_Per_Hour = 20;
 const TotalWorkingDays = 20;
+const MaxHrsInMonth = 160;
 
 function getWorkHrs(jobType)
 {
@@ -38,12 +39,14 @@ function getWorkHrs(jobType)
   }
 }
 
-// calculate emp wages
+// calculate emp wages according to toal days and hours
 {
   let empHrs = 0, totalEmpHrs=0;
   let empWage = 0, totalWages=0;
-  for (let days =0; days<=TotalWorkingDays; days++ )
+  let workingDays =0;
+  while(workingDays<TotalWorkingDays && totalEmpHrs<MaxHrsInMonth )
   {
+    workingDays++;
   let empType = Math.floor(Math.random() * 10) % 2;
  
       empHrs = getWorkHrs(empType)
@@ -51,7 +54,7 @@ function getWorkHrs(jobType)
       empWage = empHrs * Wage_Per_Hour;
       totalWages += empWage;
     
-      console.log( days,"day  Emp hrs is ",empHrs," and wages of employee is Rs :", empWage);
+      console.log( workingDays,"day  Emp hrs is ",empHrs," and wages of employee is Rs :", empWage);
   }
   console.log("Total working  hours is "+ totalEmpHrs +" and wages of employee per month is  " + totalWages);
 }
