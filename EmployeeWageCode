@@ -9,6 +9,12 @@ const Full_Time_Hrs = 8;
 const Wage_Per_Hour = 20;
 const TotalWorkingDays = 20;
 const MaxHrsInMonth = 160;
+let empDailyWagesArr = new Array();
+
+function calculateDailyWage(empHrs)
+{
+    return empWage = empHrs * Wage_Per_Hour;
+}
 
 function getWorkHrs(jobType)
 {
@@ -51,10 +57,12 @@ function getWorkHrs(jobType)
  
       empHrs = getWorkHrs(empType)
       totalEmpHrs += empHrs;
-      empWage = empHrs * Wage_Per_Hour;
-      totalWages += empWage;
     
-      console.log( workingDays,"day  Emp hrs is ",empHrs," and wages of employee is Rs :", empWage);
-  }
+     empDailyWagesArr.push(calculateDailyWage(empHrs)) 
+     totalWages += empWage;
+    
+      //console.log( workingDays,"day  Emp hrs is ",empHrs," and wages of employee is Rs :", empWage);
+       console.log(empDailyWagesArr);
+    }
   console.log("Total working  hours is "+ totalEmpHrs +" and wages of employee per month is  " + totalWages);
 }
