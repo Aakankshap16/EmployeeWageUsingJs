@@ -9,7 +9,7 @@ const Full_Time_Hrs = 8;
 const Wage_Per_Hour = 20;
 const TotalWorkingDays = 20;
 const MaxHrsInMonth = 160;
-let dailyDataArr = [];
+let EmployeeDataArr = [];
 
 function calculateDailyWage(empHrs) {
   return empHrs * Wage_Per_Hour;
@@ -41,36 +41,40 @@ if (empcheck == Is_Absent) {
     let empType = Math.floor(Math.random() * 10) % 2;
     empHrs = getWorkHrs(empType);
     totalEmpHrs += empHrs;
-
+  
     let empWage = calculateDailyWage(empHrs);
 
-    let dailyData = {
-      day: workingDays,
+    let EmployeeData = {
+      id: workingDays, // Unique ID for each employee
+      name: "Employee " + workingDays, // Replace with the employee name
+      salary: empWage, // Replace with the employee salary
       hoursWorked: empHrs,
       wageEarned: empWage,
     };
-    dailyDataArr.push(dailyData);
+    EmployeeDataArr.push(EmployeeData);
   }
 
   const calcTotalWage = () =>
-    dailyDataArr.reduce((total, data) => total + data.wageEarned, 0);
+  EmployeeDataArr.reduce((total, data) => total + data.wageEarned, 0);
   const calcTotalHours = () =>
-    dailyDataArr.reduce((total, data) => total + data.hoursWorked, 0);
+  EmployeeDataArr.reduce((total, data) => total + data.hoursWorked, 0);
   const countFullWorkingDays = () =>
-    dailyDataArr.filter((data) => data.hoursWorked === Full_Time_Hrs).length;
+  EmployeeDataArr.filter((data) => data.hoursWorked === Full_Time_Hrs).length;
   const countPartWorkingDays = () =>
-    dailyDataArr.filter((data) => data.hoursWorked === Part_Time_Hrs).length;
+  EmployeeDataArr.filter((data) => data.hoursWorked === Part_Time_Hrs).length;
   const countNoWorkingDays = () =>
     TotalWorkingDays - countFullWorkingDays() - countPartWorkingDays();
 
   console.log("Day-wise data:");
-  for (let data of dailyDataArr) {
+  for (let data of EmployeeDataArr) {
     console.log(
-      "Day",
-      data.day,
+      "ID:",
+      data.id,
+      "- Name:",
+      data.name,
       "- Hours Worked:",
       data.hoursWorked,
-      "- Wage:",
+      "- Salary:",
       data.wageEarned
     );
   }
