@@ -10,59 +10,51 @@ const Wage_Per_Hour = 20;
 const TotalWorkingDays = 20;
 const MaxHrsInMonth = 160;
 let empDailyWagesArr = new Array();
+let dailyWagesMap = new Map();
 
-function calculateDailyWage(empHrs)
-{
-    return empWage = empHrs * Wage_Per_Hour;
+function calculateDailyWage(empHrs) {
+    return empHrs * Wage_Per_Hour;
 }
 
-function getWorkHrs(jobType)
-{
-    switch(jobType)
-    {
-       case Is_PartTime:
-        {
-        empHrs = Part_Time_Hrs;
-        return empHrs;
-        }
+function getWorkHrs(jobType) {
+    switch(jobType) {
+        case Is_PartTime:
+            return Part_Time_Hrs;
         case Is_FullTime:
-        {
-            empHrs = Full_Time_Hrs;
-            return empHrs;
-        }   
+            return Full_Time_Hrs;
         default:
             return 0;
     }
 }
-// check emp present or not
-{
-  let empcheck = Math.floor(Math.random() * 10) % 2;
-  if (empcheck == Is_Absent) {
-    console.log("Employee is Absent");
-    return;
-  } else {
-    console.log("Employee is Present");
-  }
-}
 
-// calculate emp wages according to toal days and hours
-{
-  let empHrs = 0, totalEmpHrs=0;
-  let empWage = 0, totalWages=0;
-  let workingDays =0;
-  while(workingDays<TotalWorkingDays && totalEmpHrs<MaxHrsInMonth )
-  {
-    workingDays++;
-  let empType = Math.floor(Math.random() * 10) % 2;
- 
-      empHrs = getWorkHrs(empType)
-      totalEmpHrs += empHrs;
-    
-     empDailyWagesArr.push(calculateDailyWage(empHrs)) 
-     totalWages += empWage;
-    
-      //console.log( workingDays,"day  Emp hrs is ",empHrs," and wages of employee is Rs :", empWage);
-       console.log(empDailyWagesArr);
+let empcheck = Math.floor(Math.random() * 10) % 2;
+if (empcheck == Is_Absent) {
+    console.log("Employee is Absent");
+} else {
+    console.log("Employee is Present");
+
+    let empHrs = 0, totalEmpHrs = 0;
+    let totalWages = 0;
+    let workingDays = 0;
+
+    while (workingDays < TotalWorkingDays && totalEmpHrs < MaxHrsInMonth) {
+        workingDays++;
+        let empType = Math.floor(Math.random() * 10) % 2;
+        empHrs = getWorkHrs(empType);
+        totalEmpHrs += empHrs;
+
+        let empWage = calculateDailyWage(empHrs);
+        empDailyWagesArr.push(empWage);
+        dailyWagesMap.set(workingDays, empWage);
     }
-  console.log("Total working  hours is "+ totalEmpHrs +" and wages of employee per month is  " + totalWages);
+
+    totalWages = empDailyWagesArr.reduce((total, wage) => total + wage, 0);
+
+    console.log("Day-wise wages:");
+    for (let [day, wage] of dailyWagesMap) {
+        console.log("Day", day, "- Wage:", wage);
+    }
+
+    console.log("Total working hours:", totalEmpHrs);
+    console.log("Total wages per month:", totalWages);
 }
