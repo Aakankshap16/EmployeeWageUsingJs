@@ -9,9 +9,7 @@ const Full_Time_Hrs = 8;
 const Wage_Per_Hour = 20;
 const TotalWorkingDays = 20;
 const MaxHrsInMonth = 160;
-let empDailyWagesArr = [];
-let dailyWagesMap = new Map();
-let dailyHoursMap = new Map();
+let dailyDataArr = [];
 
 function calculateDailyWage(empHrs) {
   return empHrs * Wage_Per_Hour;
@@ -45,28 +43,39 @@ if (empcheck == Is_Absent) {
     totalEmpHrs += empHrs;
 
     let empWage = calculateDailyWage(empHrs);
-    empDailyWagesArr.push(empWage);
-    dailyWagesMap.set(workingDays, empWage);
-    dailyHoursMap.set(workingDays, empHrs);
+
+    let dailyData = {
+      day: workingDays,
+      hoursWorked: empHrs,
+      wageEarned: empWage,
+    };
+    dailyDataArr.push(dailyData);
   }
 
   const calcTotalWage = () =>
-    [...dailyWagesMap.values()].reduce((total, wage) => total + wage, 0);
+    dailyDataArr.reduce((total, data) => total + data.wageEarned, 0);
   const calcTotalHours = () =>
-    [...dailyHoursMap.values()].reduce((total, hours) => total + hours, 0);
+    dailyDataArr.reduce((total, data) => total + data.hoursWorked, 0);
   const countFullWorkingDays = () =>
-    [...dailyHoursMap.values()].filter((hours) => hours === Full_Time_Hrs).length;
+    dailyDataArr.filter((data) => data.hoursWorked === Full_Time_Hrs).length;
   const countPartWorkingDays = () =>
-    [...dailyHoursMap.values()].filter((hours) => hours === Part_Time_Hrs).length;
+    dailyDataArr.filter((data) => data.hoursWorked === Part_Time_Hrs).length;
   const countNoWorkingDays = () =>
     TotalWorkingDays - countFullWorkingDays() - countPartWorkingDays();
 
-  console.log("Day-wise wages:");
-  for (let [day, wage] of dailyWagesMap) {
-    console.log("Day", day, "- Wage:", wage);
+  console.log("Day-wise data:");
+  for (let data of dailyDataArr) {
+    console.log(
+      "Day",
+      data.day,
+      "- Hours Worked:",
+      data.hoursWorked,
+      "- Wage:",
+      data.wageEarned
+    );
   }
 
-  console.log("Total working hours:", totalEmpHrs);
+  console.log("Total working hours:", calcTotalHours());
   console.log("Total wages per month:", calcTotalWage());
   console.log("Full working days:", countFullWorkingDays());
   console.log("Part working days:", countPartWorkingDays());
