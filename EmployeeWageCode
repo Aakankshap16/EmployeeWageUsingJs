@@ -2,59 +2,73 @@ console.log("Welcome to Employee Wage Problem Using Js!!!!!");
 
 const Is_Absent = 0;
 const Is_Present = 1;
-const Is_PartTime = 0; 
+const Is_PartTime = 0;
 const Is_FullTime = 2;
 const Part_Time_Hrs = 4;
 const Full_Time_Hrs = 8;
 const Wage_Per_Hour = 20;
 const TotalWorkingDays = 20;
 const MaxHrsInMonth = 160;
-let empDailyWagesArr = new Array();
+let empDailyWagesArr = [];
 let dailyWagesMap = new Map();
+let dailyHoursMap = new Map();
 
 function calculateDailyWage(empHrs) {
-    return empHrs * Wage_Per_Hour;
+  return empHrs * Wage_Per_Hour;
 }
 
 function getWorkHrs(jobType) {
-    switch(jobType) {
-        case Is_PartTime:
-            return Part_Time_Hrs;
-        case Is_FullTime:
-            return Full_Time_Hrs;
-        default:
-            return 0;
-    }
+  switch (jobType) {
+    case Is_PartTime:
+      return Part_Time_Hrs;
+    case Is_FullTime:
+      return Full_Time_Hrs;
+    default:
+      return 0;
+  }
 }
 
 let empcheck = Math.floor(Math.random() * 10) % 2;
 if (empcheck == Is_Absent) {
-    console.log("Employee is Absent");
+  console.log("Employee is Absent");
 } else {
-    console.log("Employee is Present");
+  console.log("Employee is Present");
 
-    let empHrs = 0, totalEmpHrs = 0;
-    let totalWages = 0;
-    let workingDays = 0;
+  let empHrs = 0,
+    totalEmpHrs = 0;
+  let workingDays = 0;
 
-    while (workingDays < TotalWorkingDays && totalEmpHrs < MaxHrsInMonth) {
-        workingDays++;
-        let empType = Math.floor(Math.random() * 10) % 2;
-        empHrs = getWorkHrs(empType);
-        totalEmpHrs += empHrs;
+  while (workingDays < TotalWorkingDays && totalEmpHrs < MaxHrsInMonth) {
+    workingDays++;
+    let empType = Math.floor(Math.random() * 10) % 2;
+    empHrs = getWorkHrs(empType);
+    totalEmpHrs += empHrs;
 
-        let empWage = calculateDailyWage(empHrs);
-        empDailyWagesArr.push(empWage);
-        dailyWagesMap.set(workingDays, empWage);
-    }
+    let empWage = calculateDailyWage(empHrs);
+    empDailyWagesArr.push(empWage);
+    dailyWagesMap.set(workingDays, empWage);
+    dailyHoursMap.set(workingDays, empHrs);
+  }
 
-    totalWages = empDailyWagesArr.reduce((total, wage) => total + wage, 0);
+  const calcTotalWage = () =>
+    [...dailyWagesMap.values()].reduce((total, wage) => total + wage, 0);
+  const calcTotalHours = () =>
+    [...dailyHoursMap.values()].reduce((total, hours) => total + hours, 0);
+  const countFullWorkingDays = () =>
+    [...dailyHoursMap.values()].filter((hours) => hours === Full_Time_Hrs).length;
+  const countPartWorkingDays = () =>
+    [...dailyHoursMap.values()].filter((hours) => hours === Part_Time_Hrs).length;
+  const countNoWorkingDays = () =>
+    TotalWorkingDays - countFullWorkingDays() - countPartWorkingDays();
 
-    console.log("Day-wise wages:");
-    for (let [day, wage] of dailyWagesMap) {
-        console.log("Day", day, "- Wage:", wage);
-    }
+  console.log("Day-wise wages:");
+  for (let [day, wage] of dailyWagesMap) {
+    console.log("Day", day, "- Wage:", wage);
+  }
 
-    console.log("Total working hours:", totalEmpHrs);
-    console.log("Total wages per month:", totalWages);
+  console.log("Total working hours:", totalEmpHrs);
+  console.log("Total wages per month:", calcTotalWage());
+  console.log("Full working days:", countFullWorkingDays());
+  console.log("Part working days:", countPartWorkingDays());
+  console.log("No working days:", countNoWorkingDays());
 }
